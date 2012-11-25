@@ -41,4 +41,7 @@
 \\{tup-mode-map}"
   (font-lock-mode 1))
 
+(add-to-list 'auto-mode-alist '("\\.tup$" . tup-mode))
+(add-to-list 'auto-mode-alist '("Tupfile" . tup-mode))
+
 (provide 'tup-mode)
