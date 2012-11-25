@@ -34,3 +34,11 @@
 ;;;
 ;;; Files ending with the `*.tup' extension, or files named `Tupfile'
 ;;; automatically enable tup-mode.
+
+(define-derived-mode tup-mode prog-mode "Tup"
+  "Major mode for editing tupfiles for the Tup build system.
+
+\\{tup-mode-map}"
+  (font-lock-mode 1))
+
+(provide 'tup-mode)
