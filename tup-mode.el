@@ -101,7 +101,9 @@ for syntax highlighting.")
 If the `command' is 'upd' then the output appears in the special
 buffer `*Tup*'.  Other commands do not show any output."
   (if (string= command "upd")
-      (call-process-shell-command "tup" nil "*Tup*" t command)
+      (progn
+        (call-process-shell-command "tup" nil "*Tup*" t command)
+        (switch-to-buffer "*Tup*"))
       (call-process-shell-command "tup" nil nil nil command)))
 
 (defmacro tup/make-command-key-binding (key command)
