@@ -2,7 +2,7 @@
 ;;;
 ;;; Copyright 2012 Eric James Michael Ritz
 ;;;     <lobbyjones@gmail.com>
-;;;     <http://github.com/ejmr/tup-mode>
+;;;     <https://github.com/ejmr/tup-mode>
 ;;;
 ;;;
 ;;;
