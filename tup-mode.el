@@ -64,6 +64,8 @@ appear in Tupfiles.")
 \\{tup-mode-map}"
   (font-lock-mode 1))
 
+;;; Automatically enable tup-mode for any file with the `*.tup'
+;;; extension and for the specific file `Tupfile'.
 (add-to-list 'auto-mode-alist '("\\.tup$" . tup-mode))
 (add-to-list 'auto-mode-alist '("Tupfile" . tup-mode))
 
