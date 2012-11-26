@@ -58,6 +58,12 @@
   "A regular expression matching all of the keywords that can
 appear in Tupfiles.")
 
+(defconst tup/font-lock-definitions
+  (list
+   '("#.*" . font-lock-comment-face))
+  "A map of regular expressions to font-lock faces that are used
+for syntax highlighting.")
+
 (define-derived-mode tup-mode prog-mode "Tup"
   "Major mode for editing tupfiles for the Tup build system.
 
