@@ -36,9 +36,27 @@
 ;;; automatically enable tup-mode.
 
 (require 'font-lock)
+(require 'regexp-opt)
 
 (defconst tup-mode-version-number "0.0"
   "Tup mode version number.")
+
+(defconst tup/keywords-regexp
+  (regexp-opt
+   (list "foreach"
+         "ifeq"
+         "ifneq"
+         "ifdef"
+         "ifndef"
+         "else"
+         "endif"
+         "include"
+         "include_rules"
+         "run"
+         "export"
+         ".gitignore"))
+  "A regular expression matching all of the keywords that can
+appear in Tupfiles.")
 
 (define-derived-mode tup-mode prog-mode "Tup"
   "Major mode for editing tupfiles for the Tup build system.
