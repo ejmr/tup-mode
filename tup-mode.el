@@ -35,11 +35,22 @@
 ;;; Files ending with the `*.tup' extension, or files named `Tupfile'
 ;;; automatically enable tup-mode.
 
+(require 'custom)
 (require 'font-lock)
 (require 'regexp-opt)
 
 (defconst tup-mode-version-number "0.0"
   "Tup mode version number.")
+
+(defgroup tup nil
+  "Major mode for editing files for the Tup build system."
+  :prefix "tup-"
+  :group 'languages)
+
+(defcustom tup-executable "/usr/local/bin/tup"
+  "The location of the `tup' program."
+  :type 'string
+  :group 'tup)
 
 (defconst tup/keywords-regexp
   (regexp-opt
