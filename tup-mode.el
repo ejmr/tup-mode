@@ -35,11 +35,22 @@
 ;;; Files ending with the `*.tup' extension, or files named `Tupfile'
 ;;; automatically enable tup-mode.
 
+(require 'custom)
 (require 'font-lock)
 (require 'regexp-opt)
 
 (defconst tup-mode-version-number "0.0"
   "Tup mode version number.")
+
+(defgroup tup nil
+  "Major mode for editing files for the Tup build system."
+  :prefix "tup-"
+  :group 'languages)
+
+(defcustom tup-executable "/usr/local/bin/tup"
+  "The location of the `tup' program."
+  :type 'string
+  :group 'tup)
 
 (defconst tup/keywords-regexp
   (regexp-opt
@@ -84,6 +95,30 @@ for syntax highlighting.")
   (modify-syntax-entry ?_ "w" tup-mode-syntax-table)
   (set (make-local-variable 'require-final-newline) t)
   (font-lock-mode 1))
+
+(defun tup/run-command (command)
+  "Execute a Tup `command' in the current directory.
+If the `command' is 'upd' then the output appears in the special
+buffer `*Tup*'.  Other commands do not show any output."
+  (if (string= command "upd")
+      (progn
+        (call-process-shell-command "tup" nil "*Tup*" t command)
+        (switch-to-buffer "*Tup*"))
+      (call-process-shell-command "tup" nil nil nil command)))
+
+(defmacro tup/make-command-key-binding (key command)
+  "Binds the `key' sequence to execute the Tup `command'.
+The `key' must be a valid argument to the `kbd' macro."
+  `(define-key tup-mode-map (kbd ,key)
+     '(lambda ()
+        (interactive)
+        (tup/run-command ,command))))
+
+;;; Bind keys to frequently used Tup commands.
+(tup/make-command-key-binding "C-c C-i" "init")
+(tup/make-command-key-binding "C-c C-u" "upd")
+(tup/make-command-key-binding "C-c C-m" "monitor")
+(tup/make-command-key-binding "C-c C-s" "stop")
 
 ;;; Automatically enable tup-mode for any file with the `*.tup'
 ;;; extension and for the specific file `Tupfile'.
