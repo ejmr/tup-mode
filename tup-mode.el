@@ -85,6 +85,28 @@ for syntax highlighting.")
   (set (make-local-variable 'require-final-newline) t)
   (font-lock-mode 1))
 
+(defun tup/run-command (command)
+  "Execute a Tup `command' in the current directory.
+If the `command' is 'upd' then the output appears in the special
+buffer `*Tup*'.  Other commands do not show any output."
+  (if (string= command "upd")
+      (call-process-shell-command "tup" nil "*Tup*" t command)
+      (call-process-shell-command "tup" nil nil nil command)))
+
+(defmacro tup/make-command-key-binding (key command)
+  "Binds the `key' sequence to execute the Tup `command'.
+The `key' must be a valid argument to the `kbd' macro."
+  `(define-key tup-mode-map (kbd ,key)
+     '(lambda ()
+        (interactive)
+        (tup/run-command ,command))))
+
+;;; Bind keys to frequently used Tup commands.
+(tup/make-command-key-binding "C-c C-i" "init")
+(tup/make-command-key-binding "C-c C-u" "upd")
+(tup/make-command-key-binding "C-c C-m" "monitor")
+(tup/make-command-key-binding "C-c C-s" "stop")
+
 ;;; Automatically enable tup-mode for any file with the `*.tup'
 ;;; extension and for the specific file `Tupfile'.
 (add-to-list 'auto-mode-alist '("\\.tup$" . tup-mode))
