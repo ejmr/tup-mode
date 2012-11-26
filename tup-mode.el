@@ -101,7 +101,8 @@ for syntax highlighting.")
        '(tup/font-lock-definitions nil t))
   (modify-syntax-entry ?_ "w" tup-mode-syntax-table)
   (set (make-local-variable 'require-final-newline) t)
-  (font-lock-mode 1))
+  (font-lock-mode 1)
+  (run-hooks 'tup-mode-hook))
 
 (defun tup/run-command (command)
   "Execute a Tup `command' in the current directory.
