@@ -68,6 +68,9 @@ for syntax highlighting.")
   "Major mode for editing tupfiles for the Tup build system.
 
 \\{tup-mode-map}"
+  (make-local-variable 'font-lock-defaults)
+  (setq font-lock-defaults
+        '(tup/font-lock-definitions nil t))
   (font-lock-mode 1))
 
 ;;; Automatically enable tup-mode for any file with the `*.tup'
