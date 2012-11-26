@@ -97,9 +97,8 @@ for syntax highlighting.")
   "Major mode for editing tupfiles for the Tup build system.
 
 \\{tup-mode-map}"
-  (make-local-variable 'font-lock-defaults)
-  (setq font-lock-defaults
-        '(tup/font-lock-definitions nil t))
+  (set (make-local-variable 'font-lock-defaults)
+       '(tup/font-lock-definitions nil t))
   (modify-syntax-entry ?_ "w" tup-mode-syntax-table)
   (set (make-local-variable 'require-final-newline) t)
   (font-lock-mode 1))
