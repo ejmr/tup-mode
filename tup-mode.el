@@ -75,6 +75,7 @@ for syntax highlighting.")
   (make-local-variable 'font-lock-defaults)
   (setq font-lock-defaults
         '(tup/font-lock-definitions nil t))
+  (modify-syntax-entry ?_ "w" tup-mode-syntax-table)
   (font-lock-mode 1))
 
 ;;; Automatically enable tup-mode for any file with the `*.tup'
