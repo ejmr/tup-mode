@@ -27,7 +27,7 @@
 ;;;
 ;;; Usage:
 ;;;
-;;; Place this file somewhere in your Emacs Lisp path, i.e. `site-lisp',
+;;; Place this file somewhere in your Emacs Lisp path, i.e. `load-path',
 ;;; and add this to your `.emacs' file:
 ;;;
 ;;;     (require 'tup-mode)
