@@ -82,6 +82,7 @@ for syntax highlighting.")
   (setq font-lock-defaults
         '(tup/font-lock-definitions nil t))
   (modify-syntax-entry ?_ "w" tup-mode-syntax-table)
+  (set (make-local-variable 'require-final-newline) t)
   (font-lock-mode 1))
 
 ;;; Automatically enable tup-mode for any file with the `*.tup'
