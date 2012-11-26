@@ -72,15 +72,23 @@ appear in Tupfiles.")
 
 (defconst tup/font-lock-definitions
   (list
+   ;; Matches lines beginning with pound signs, i.e. comments.
    (cons "#.*" font-lock-comment-face)
+   ;; Matches all keywords defined by tup/keywords-regexp.
    (cons tup/keywords-regexp font-lock-keyword-face)
+   ;; Matches macros, lines such as '!foo = bar'.
    (cons "^\\(!\\sw+\\)[[:space:]]*=" '(1 font-lock-preprocessor-face))
-   ;; Matches: 'FOO=bar' and 'FOO+=bar' with optional spaces.
+   ;; Matches 'FOO=bar' and 'FOO+=bar' with optional spaces.
    (cons "^\\(\\sw+\\)[[:space:]]*\\+?=[[:space:]]*.+" '(1 font-lock-variable-name-face))
+   ;; Matches variables like $(FOO).
    (cons "\\$(\\(\\sw+\\))" '(1 font-lock-variable-name-face))
+   ;; Matches variables like @(FOO).
    (cons "\\@(\\(\\sw+\\))" '(1 font-lock-variable-name-face))
+   ;; Matches the initial colon in rule definitions.
    (cons "^:" font-lock-constant-face)
+   ;; Matches the '|>' delimeter in rules and macros.
    (cons "|>" font-lock-constant-face)
+   ;; Matches flags in rules like '%f' and '%B'.
    (cons "\\<%[[:alpha:]]\\{1\\}" font-lock-preprocessor-face))
   "A map of regular expressions to font-lock faces that are used
 for syntax highlighting.")
