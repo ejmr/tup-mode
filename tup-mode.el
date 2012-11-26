@@ -76,7 +76,7 @@ appear in Tupfiles.")
    (cons tup/keywords-regexp font-lock-keyword-face)
    (cons "^\\(!\\sw+\\)[[:space:]]*=" '(1 font-lock-preprocessor-face))
    ;; Matches: 'FOO=bar' and 'FOO+=bar' with optional spaces.
-   (cons "^\\(\\sw+\\)[[:space:]]*\\+?=[[:space:]]*\\sw+" '(1 font-lock-variable-name-face))
+   (cons "^\\(\\sw+\\)[[:space:]]*\\+?=[[:space:]]*.+" '(1 font-lock-variable-name-face))
    (cons "\\$(\\(\\sw+\\))" '(1 font-lock-variable-name-face))
    (cons "\\@(\\(\\sw+\\))" '(1 font-lock-variable-name-face))
    (cons "^:" font-lock-constant-face)
