@@ -69,7 +69,8 @@ appear in Tupfiles.")
    (cons "\\$(\\(\\sw+\\))" '(1 font-lock-variable-name-face))
    (cons "\\@(\\(\\sw+\\))" '(1 font-lock-variable-name-face))
    (cons "^:" font-lock-constant-face)
-   (cons "|>" font-lock-constant-face))
+   (cons "|>" font-lock-constant-face)
+   (cons "\\<%[[:alpha:]]\\{1\\}" font-lock-preprocessor-face))
   "A map of regular expressions to font-lock faces that are used
 for syntax highlighting.")
 
