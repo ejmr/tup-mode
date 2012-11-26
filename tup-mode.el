@@ -35,6 +35,8 @@
 ;;; Files ending with the `*.tup' extension, or files named `Tupfile'
 ;;; automatically enable tup-mode.
 
+(require 'font-lock)
+
 (defconst tup-mode-version-number "0.0"
   "Tup mode version number.")
 
