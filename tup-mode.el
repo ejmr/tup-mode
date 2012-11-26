@@ -35,15 +35,57 @@
 ;;; Files ending with the `*.tup' extension, or files named `Tupfile'
 ;;; automatically enable tup-mode.
 
+(require 'font-lock)
+(require 'regexp-opt)
+
 (defconst tup-mode-version-number "0.0"
   "Tup mode version number.")
+
+(defconst tup/keywords-regexp
+  (regexp-opt
+   (list "foreach"
+         "ifeq"
+         "ifneq"
+         "ifdef"
+         "ifndef"
+         "else"
+         "endif"
+         "include"
+         "include_rules"
+         "run"
+         "export"
+         ".gitignore")
+   'words)
+  "A regular expression matching all of the keywords that can
+appear in Tupfiles.")
+
+(defconst tup/font-lock-definitions
+  (list
+   (cons "#.*" font-lock-comment-face)
+   (cons tup/keywords-regexp font-lock-keyword-face)
+   (cons "^\\(!\\sw+\\)[[:space:]]*=" '(1 font-lock-preprocessor-face))
+   ;; Matches: 'FOO=bar' and 'FOO+=bar' with optional spaces.
+   (cons "^\\(\\sw+\\)[[:space:]]*\\+?=[[:space:]]*\\sw+" '(1 font-lock-variable-name-face))
+   (cons "\\$(\\(\\sw+\\))" '(1 font-lock-variable-name-face))
+   (cons "\\@(\\(\\sw+\\))" '(1 font-lock-variable-name-face))
+   (cons "^:" font-lock-constant-face)
+   (cons "|>" font-lock-constant-face)
+   (cons "\\<%[[:alpha:]]\\{1\\}" font-lock-preprocessor-face))
+  "A map of regular expressions to font-lock faces that are used
+for syntax highlighting.")
 
 (define-derived-mode tup-mode prog-mode "Tup"
   "Major mode for editing tupfiles for the Tup build system.
 
 \\{tup-mode-map}"
+  (make-local-variable 'font-lock-defaults)
+  (setq font-lock-defaults
+        '(tup/font-lock-definitions nil t))
+  (modify-syntax-entry ?_ "w" tup-mode-syntax-table)
   (font-lock-mode 1))
 
+;;; Automatically enable tup-mode for any file with the `*.tup'
+;;; extension and for the specific file `Tupfile'.
 (add-to-list 'auto-mode-alist '("\\.tup$" . tup-mode))
 (add-to-list 'auto-mode-alist '("Tupfile" . tup-mode))
 
