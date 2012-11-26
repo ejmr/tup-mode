@@ -54,13 +54,15 @@
          "include_rules"
          "run"
          "export"
-         ".gitignore"))
+         ".gitignore")
+   'words)
   "A regular expression matching all of the keywords that can
 appear in Tupfiles.")
 
 (defconst tup/font-lock-definitions
   (list
-   '("#.*" . font-lock-comment-face))
+   (cons "#.*" font-lock-comment-face)
+   (cons tup/keywords-regexp font-lock-keyword-face))
   "A map of regular expressions to font-lock faces that are used
 for syntax highlighting.")
 
