@@ -66,7 +66,9 @@ appear in Tupfiles.")
    ;; Matches: 'FOO=bar' and 'FOO+=bar' with optional spaces.
    (cons "^\\(\\sw+\\)[[:space:]]*\\+?=[[:space:]]*\\sw+" '(1 font-lock-variable-name-face))
    (cons "\\$(\\(\\sw+\\))" '(1 font-lock-variable-name-face))
-   (cons "\\@(\\(\\sw+\\))" '(1 font-lock-variable-name-face)))
+   (cons "\\@(\\(\\sw+\\))" '(1 font-lock-variable-name-face))
+   (cons "^:" font-lock-constant-face)
+   (cons "|>" font-lock-constant-face))
   "A map of regular expressions to font-lock faces that are used
 for syntax highlighting.")
 
