@@ -63,6 +63,8 @@ appear in Tupfiles.")
   (list
    (cons "#.*" font-lock-comment-face)
    (cons tup/keywords-regexp font-lock-keyword-face)
+   ;; Matches: 'FOO=bar' and 'FOO+=bar' with optional spaces.
+   (cons "^\\(\\sw+\\)[[:space:]]*\\+?=[[:space:]]*\\sw+" '(1 font-lock-variable-name-face))
    (cons "\\$(\\(\\sw+\\))" '(1 font-lock-variable-name-face))
    (cons "\\@(\\(\\sw+\\))" '(1 font-lock-variable-name-face)))
   "A map of regular expressions to font-lock faces that are used
