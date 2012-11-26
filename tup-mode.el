@@ -62,7 +62,8 @@ appear in Tupfiles.")
 (defconst tup/font-lock-definitions
   (list
    (cons "#.*" font-lock-comment-face)
-   (cons tup/keywords-regexp font-lock-keyword-face))
+   (cons tup/keywords-regexp font-lock-keyword-face)
+   (cons "\\$(\\(\\sw+\\))" '(1 font-lock-variable-name-face)))
   "A map of regular expressions to font-lock faces that are used
 for syntax highlighting.")
 
