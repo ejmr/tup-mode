@@ -9,9 +9,9 @@ Features
 --------
 
 Tup mode provides syntax highlighting for all of the elements of
-tupfiles, such as rule definitions, variables, macros, flags, and so
-on.  The mode also allows you to execute Tup commands.  It binds the
-following key sequences:
+tupfiles, such as rule definitions, user-defined variables, macros,
+flags, bin variables, and so on.  The mode also allows you to execute
+Tup commands.  It binds the following key sequences:
 
 1. `C-c C-i`: `tup init`
 2. `C-c C-u`: `tup upd`
