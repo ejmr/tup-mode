@@ -84,6 +84,8 @@ appear in Tupfiles.")
    (cons "\\$(\\(\\sw+\\))" '(1 font-lock-variable-name-face))
    ;; Matches variables like @(FOO).
    (cons "\\@(\\(\\sw+\\))" '(1 font-lock-variable-name-face))
+   ;; Matches bin variables like {foo}
+   (cons "{\\(\\sw+\\)}" '(1 font-lock-variable-name-face))
    ;; Matches the initial colon in rule definitions.
    (cons "^:" font-lock-constant-face)
    ;; Matches the '|>' delimeter in rules and macros.
