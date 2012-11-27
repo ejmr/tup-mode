@@ -72,8 +72,6 @@ appear in Tupfiles.")
 
 (defconst tup/font-lock-definitions
   (list
-   ;; Matches lines beginning with pound signs, i.e. comments.
-   (cons "#.*" font-lock-comment-face)
    ;; Matches all keywords defined by tup/keywords-regexp.
    (cons tup/keywords-regexp font-lock-keyword-face)
    ;; Matches macros, lines such as '!foo = bar'.
@@ -102,6 +100,11 @@ for syntax highlighting.")
   (set (make-local-variable 'font-lock-defaults)
        '(tup/font-lock-definitions nil t))
   (modify-syntax-entry ?_ "w" tup-mode-syntax-table)
+  ;; Modify the syntax table so that tup-mode understands the comment
+  ;; format in tupfiles: lines beginning with '#' and running until
+  ;; the end of the line.
+  (modify-syntax-entry ?# "< b" tup-mode-syntax-table)
+  (modify-syntax-entry ?\n "> b" tup-mode-syntax-table)
   (set (make-local-variable 'require-final-newline) t)
   (font-lock-mode 1)
   (run-hooks 'tup-mode-hook))
