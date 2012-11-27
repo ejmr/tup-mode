@@ -97,16 +97,29 @@ for syntax highlighting.")
   "Major mode for editing tupfiles for the Tup build system.
 
 \\{tup-mode-map}"
+  ;; Inform font-lock of all of the regular expressions above which
+  ;; map to different font-lock faces, and then enable font-lock-mode
+  ;; so they actually affect the tupfile.
   (set (make-local-variable 'font-lock-defaults)
        '(tup/font-lock-definitions nil t))
+  (font-lock-mode 1)
+  ;; Treat the underscore as a 'word character'.  In the regular
+  ;; expressions we use for font-lock we often match against '\sw',
+  ;; i.e. word characters.  We want the underscore to be such a
+  ;; character so that it will count as part of variable names, among
+  ;; other things.  Without this a variable like @(FOO_BAR) would only
+  ;; be partially highlighted; it would stop at the underscore.
   (modify-syntax-entry ?_ "w" tup-mode-syntax-table)
   ;; Modify the syntax table so that tup-mode understands the comment
   ;; format in tupfiles: lines beginning with '#' and running until
   ;; the end of the line.
   (modify-syntax-entry ?# "< b" tup-mode-syntax-table)
   (modify-syntax-entry ?\n "> b" tup-mode-syntax-table)
+  ;; Tup can complain with an error if the tupfile does not end with a
+  ;; newline, especially when we have tup rules that span multiple
+  ;; lines.  So we always require a newline at the end of a tupfile.
   (set (make-local-variable 'require-final-newline) t)
-  (font-lock-mode 1)
+  ;; Finally run any hooks.
   (run-hooks 'tup-mode-hook))
 
 (defun tup/run-command (command)
