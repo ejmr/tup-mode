@@ -19,6 +19,14 @@ Tup commands.  It binds the following key sequences:
 4. `C-c C-s`: `tup stop`
 
 
+Future Plans
+------------
+
+On my todo list I have plans to add support for creating and managing
+variants.  That will allow users to use different build configurations
+for their projects.
+
+
 License
 -------
 
