@@ -134,7 +134,6 @@ The `key' must be a valid argument to the `kbd' macro."
 
 ;;; Bind keys to frequently used Tup commands.
 (tup/make-command-key-binding "C-c C-i" "init")
-(tup/make-command-key-binding "C-c C-u" "upd")
 (tup/make-command-key-binding "C-c C-m" "monitor")
 (tup/make-command-key-binding "C-c C-s" "stop")
 
@@ -146,6 +145,22 @@ buffer."
   (let ((tup-buffer (get-buffer-create "*Tup*")))
     (call-process-shell-command "tup" nil tup-buffer t "upd" variant)
     (switch-to-buffer-other-window tup-buffer t)))
+
+;;; Elsewhere we use tup/make-command-key-binding to setup the keys
+;;; for tup-mode.  However, we need to use a custom function for the
+;;; key-binding to run 'tup upd' because we want to accept an optional
+;;; argument: a variant to update.
+;;;
+;;; We bind 'C-c C-u' to run 'tup upd', but if given the prefix
+;;; command it will first prompt the user for the name of a variant to
+;;; update.
+(define-key tup-mode-map (kbd "C-c C-u")
+  '(lambda (prefix)
+     (interactive "P")
+     (let ((variant
+            (if prefix
+                (read-from-minibuffer "Variant: "))))
+       (tup/run-upd variant))))
 
 ;;; Automatically enable tup-mode for any file with the `*.tup'
 ;;; extension and for the specific file `Tupfile'.
