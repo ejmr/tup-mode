@@ -121,14 +121,8 @@ for syntax highlighting.")
   (set (make-local-variable 'require-final-newline) t))
 
 (defun tup/run-command (command)
-  "Execute a Tup `command' in the current directory.
-If the `command' is 'upd' then the output appears in the special
-buffer `*Tup*'.  Other commands do not show any output."
-  (if (string= command "upd")
-      (progn
-        (call-process-shell-command "tup" nil "*Tup*" t command)
-        (switch-to-buffer "*Tup*"))
-      (call-process-shell-command "tup" nil nil nil command)))
+  "Execute a Tup `command' in the current directory."
+  (call-process-shell-command "tup" nil nil nil command))
 
 (defmacro tup/make-command-key-binding (key command)
   "Binds the `key' sequence to execute the Tup `command'.
