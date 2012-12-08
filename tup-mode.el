@@ -39,7 +39,7 @@
 (require 'font-lock)
 (require 'regexp-opt)
 
-(defconst tup-mode-version-number "1.1"
+(defconst tup-mode-version-number "1.2"
   "Tup mode version number.")
 
 (defgroup tup nil
