@@ -118,9 +118,7 @@ for syntax highlighting.")
   ;; Tup can complain with an error if the tupfile does not end with a
   ;; newline, especially when we have tup rules that span multiple
   ;; lines.  So we always require a newline at the end of a tupfile.
-  (set (make-local-variable 'require-final-newline) t)
-  ;; Finally run any hooks.
-  (run-hooks 'tup-mode-hook))
+  (set (make-local-variable 'require-final-newline) t))
 
 (defun tup/run-command (command)
   "Execute a Tup `command' in the current directory.
