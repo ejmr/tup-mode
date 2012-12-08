@@ -138,6 +138,15 @@ The `key' must be a valid argument to the `kbd' macro."
 (tup/make-command-key-binding "C-c C-m" "monitor")
 (tup/make-command-key-binding "C-c C-s" "stop")
 
+(defun tup/run-upd (&optional variant)
+  "Runs the Tup 'upd' command.  If the optional `variant'
+argument is provided then the command updates that specific
+variant.  The output of the command appears in the `*Tup*'
+buffer."
+  (let ((tup-buffer (get-buffer-create "*Tup*")))
+    (call-process-shell-command "tup" nil tup-buffer t "upd" variant)
+    (switch-to-buffer-other-window tup-buffer t)))
+
 ;;; Automatically enable tup-mode for any file with the `*.tup'
 ;;; extension and for the specific file `Tupfile'.
 (add-to-list 'auto-mode-alist '("\\.tup$" . tup-mode))
