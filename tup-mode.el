@@ -76,8 +76,9 @@ appear in Tupfiles.")
    (cons tup/keywords-regexp font-lock-keyword-face)
    ;; Matches macros, lines such as '!foo = bar'.
    (cons "^\\(!\\sw+\\)[[:space:]]*=" '(1 font-lock-preprocessor-face))
-   ;; Matches 'FOO=bar' and 'FOO+=bar' with optional spaces.
-   (cons "^\\(\\sw+\\)[[:space:]]*\\+?=[[:space:]]*.+" '(1 font-lock-variable-name-face))
+   ;; Matches 'FOO=bar', 'FOO:=', and 'FOO+=bar' with optional spaces.
+   (cons "^\\(\\sw+\\)[[:space:]]*\\(?:\\+\\|:\\)?=[[:space:]]*.+"
+         '(1 font-lock-variable-name-face))
    ;; Matches variables like $(FOO).
    (cons "\\$(\\(\\sw+\\))" '(1 font-lock-variable-name-face))
    ;; Matches variables like @(FOO).
