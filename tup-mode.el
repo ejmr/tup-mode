@@ -121,14 +121,8 @@ for syntax highlighting.")
   (set (make-local-variable 'require-final-newline) t))
 
 (defun tup/run-command (command)
-  "Execute a Tup `command' in the current directory.
-If the `command' is 'upd' then the output appears in the special
-buffer `*Tup*'.  Other commands do not show any output."
-  (if (string= command "upd")
-      (progn
-        (call-process-shell-command "tup" nil "*Tup*" t command)
-        (switch-to-buffer "*Tup*"))
-      (call-process-shell-command "tup" nil nil nil command)))
+  "Execute a Tup `command' in the current directory."
+  (call-process-shell-command "tup" nil nil nil command))
 
 (defmacro tup/make-command-key-binding (key command)
   "Binds the `key' sequence to execute the Tup `command'.
@@ -140,9 +134,33 @@ The `key' must be a valid argument to the `kbd' macro."
 
 ;;; Bind keys to frequently used Tup commands.
 (tup/make-command-key-binding "C-c C-i" "init")
-(tup/make-command-key-binding "C-c C-u" "upd")
 (tup/make-command-key-binding "C-c C-m" "monitor")
 (tup/make-command-key-binding "C-c C-s" "stop")
+
+(defun tup/run-upd (&optional variant)
+  "Runs the Tup 'upd' command.  If the optional `variant'
+argument is provided then the command updates that specific
+variant.  The output of the command appears in the `*Tup*'
+buffer."
+  (let ((tup-buffer (get-buffer-create "*Tup*")))
+    (call-process-shell-command "tup" nil tup-buffer t "upd" variant)
+    (switch-to-buffer-other-window tup-buffer t)))
+
+;;; Elsewhere we use tup/make-command-key-binding to setup the keys
+;;; for tup-mode.  However, we need to use a custom function for the
+;;; key-binding to run 'tup upd' because we want to accept an optional
+;;; argument: a variant to update.
+;;;
+;;; We bind 'C-c C-u' to run 'tup upd', but if given the prefix
+;;; command it will first prompt the user for the name of a variant to
+;;; update.
+(define-key tup-mode-map (kbd "C-c C-u")
+  '(lambda (prefix)
+     (interactive "P")
+     (let ((variant
+            (if prefix
+                (read-from-minibuffer "Variant: "))))
+       (tup/run-upd variant))))
 
 ;;; Automatically enable tup-mode for any file with the `*.tup'
 ;;; extension and for the specific file `Tupfile'.
