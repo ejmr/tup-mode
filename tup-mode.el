@@ -166,8 +166,9 @@ buffer."
        (tup/run-upd variant))))
 
 ;;; Automatically enable tup-mode for any file with the `*.tup'
-;;; extension and for the specific file `Tupfile'.
+;;; extension and for the specific files `Tupfile' and `tup.config'.
 (add-to-list 'auto-mode-alist '("\\.tup$" . tup-mode))
 (add-to-list 'auto-mode-alist '("Tupfile" . tup-mode))
+(add-to-list 'auto-mode-alist '("tup.config" . tup-mode))
 
 (provide 'tup-mode)
