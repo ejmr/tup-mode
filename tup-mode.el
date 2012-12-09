@@ -65,6 +65,7 @@
          "include_rules"
          "run"
          "export"
+         "preload"
          ".gitignore")
    'words)
   "A regular expression matching all of the keywords that can
