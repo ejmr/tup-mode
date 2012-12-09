@@ -33,7 +33,7 @@
 ;;;     (require 'tup-mode)
 ;;;
 ;;; Files ending with the `*.tup' extension, or files named `Tupfile'
-;;; automatically enable tup-mode.
+;;; or `tup.config' automatically enable tup-mode.
 
 (require 'custom)
 (require 'font-lock)
