@@ -1,6 +1,6 @@
 ;;; tup-mode.el --- Major mode for editing files for Tup
 ;;;
-;;; Copyright 2012 Eric James Michael Ritz
+;;; Copyright 2012, 2013 Eric James Michael Ritz
 ;;;     <lobbyjones@gmail.com>
 ;;;     <https://github.com/ejmr/tup-mode>
 ;;;
