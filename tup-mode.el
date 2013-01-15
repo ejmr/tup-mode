@@ -99,6 +99,7 @@ appear in Tupfiles.")
   "A map of regular expressions to font-lock faces that are used
 for syntax highlighting.")
 
+;;;###autoload
 (define-derived-mode tup-mode prog-mode "Tup"
   "Major mode for editing tupfiles for the Tup build system.
 
@@ -182,9 +183,11 @@ buffer."
 
 ;;; Automatically enable tup-mode for any file with the `*.tup'
 ;;; extension and for the specific files `Tupfile' and `tup.config'.
-(add-to-list 'auto-mode-alist '("\\.tup$" . tup-mode))
-(add-to-list 'auto-mode-alist '("Tupfile" . tup-mode))
-(add-to-list 'auto-mode-alist '("tup.config" . tup-mode))
+;;;###autoload
+(progn
+  (add-to-list 'auto-mode-alist '("\\.tup$" . tup-mode))
+  (add-to-list 'auto-mode-alist '("Tupfile" . tup-mode))
+  (add-to-list 'auto-mode-alist '("tup.config" . tup-mode)))
 
 (provide 'tup-mode)
 
