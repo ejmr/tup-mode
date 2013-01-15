@@ -29,4 +29,4 @@ you can see if the build succeeded or not.
 License
 -------
 
-GNU General Public License Version 3
+[GNU General Public License Version 3](http://www.gnu.org/copyleft/gpl.html)
