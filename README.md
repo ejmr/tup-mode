@@ -26,6 +26,12 @@ will show you a `*Tup*` buffer containing the output from Tup so that
 you can see if the build succeeded or not.
 
 
+Contributors
+------------
+
+1. [Steve Purcell](https://github.com/purcell)
+
+
 License
 -------
 
