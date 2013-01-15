@@ -175,3 +175,5 @@ buffer."
 (add-to-list 'auto-mode-alist '("tup.config" . tup-mode))
 
 (provide 'tup-mode)
+
+;;; tup-mode.el ends here
