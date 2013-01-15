@@ -130,18 +130,27 @@ for syntax highlighting.")
   "Execute a Tup `command' in the current directory."
   (call-process-shell-command "tup" nil nil nil command))
 
-(defmacro tup/make-command-key-binding (key command)
+(defmacro tup/make-command-key-binding (key command docstring)
   "Binds the `key' sequence to execute the Tup `command'.
 The `key' must be a valid argument to the `kbd' macro."
-  `(define-key tup-mode-map (kbd ,key)
-     '(lambda ()
-        (interactive)
-        (tup/run-command ,command))))
+  (let ((command-function (intern (concat "tup/run-command-" command))))
+    `(progn
+       (defun ,command-function ()
+         ,docstring
+         (interactive)
+         (tup/run-command ,command))
+       (define-key tup-mode-map (kbd ,key) ',command-function))))
 
 ;;; Bind keys to frequently used Tup commands.
-(tup/make-command-key-binding "C-c C-i" "init")
-(tup/make-command-key-binding "C-c C-m" "monitor")
-(tup/make-command-key-binding "C-c C-s" "stop")
+(tup/make-command-key-binding
+ "C-c C-i" "init"
+ "Initializes Tup in the directory of the current file.")
+(tup/make-command-key-binding
+ "C-c C-m" "monitor"
+ "Starts the Tup monitor in the current directory.")
+(tup/make-command-key-binding
+ "C-c C-s" "stop"
+ "Stops the monitor process if Tup is running it.")
 
 (defun tup/run-upd (&optional variant)
   "Runs the Tup 'upd' command.  If the optional `variant'
@@ -160,13 +169,16 @@ buffer."
 ;;; We bind 'C-c C-u' to run 'tup upd', but if given the prefix
 ;;; command it will first prompt the user for the name of a variant to
 ;;; update.
-(define-key tup-mode-map (kbd "C-c C-u")
-  '(lambda (prefix)
-     (interactive "P")
-     (let ((variant
-            (if prefix
-                (read-from-minibuffer "Variant: "))))
-       (tup/run-upd variant))))
+
+(defun tup/run-command-upd (prefix)
+  "Updates the current project in the current directory."
+  (interactive "P")
+  (let ((variant
+         (if prefix
+             (read-from-minibuffer "Variant: "))))
+    (tup/run-upd variant)))
+
+(define-key tup-mode-map (kbd "C-c C-u") 'tup/run-command-upd)
 
 ;;; Automatically enable tup-mode for any file with the `*.tup'
 ;;; extension and for the specific files `Tupfile' and `tup.config'.
