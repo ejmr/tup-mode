@@ -135,7 +135,7 @@ for syntax highlighting.")
 
 (defmacro tup/make-command-key-binding (key command docstring)
   "Binds the `key' sequence to execute the Tup `command'.
-The `key' must be a valid argument to the `kbd' macro."
+The `key' must be a valid argument to the `kbd' function."
   (let ((command-function (intern (concat "tup/run-command-" command))))
     `(progn
        (defun ,command-function ()
