@@ -161,11 +161,6 @@ buffer."
     (call-process-shell-command "tup" nil tup-buffer t "upd" variant)
     (switch-to-buffer-other-window tup-buffer t)))
 
-;;; Elsewhere we use tup/make-command-key-binding to setup the keys
-;;; for tup-mode.  However, we need to use a custom function for the
-;;; key-binding to run 'tup upd' because we want to accept an optional
-;;; argument: a variant to update.
-;;;
 ;;; We bind 'C-c C-u' to run 'tup upd', but if given the prefix
 ;;; command it will first prompt the user for the name of a variant to
 ;;; update.
