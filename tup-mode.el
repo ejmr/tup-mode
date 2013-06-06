@@ -161,12 +161,10 @@ buffer."
     (call-process-shell-command "tup" nil tup-buffer t "upd" variant)
     (switch-to-buffer-other-window tup-buffer t)))
 
-;;; We bind 'C-c C-u' to run 'tup upd', but if given the prefix
-;;; command it will first prompt the user for the name of a variant to
-;;; update.
-
 (defun tup/run-command-upd (prefix)
-  "Updates the current project in the current directory."
+  "Updates the current project in the current directory.  If
+given the `prefix' the function prompts the user for the name of
+a Tup variant."
   (interactive "P")
   (let ((variant
          (if prefix
