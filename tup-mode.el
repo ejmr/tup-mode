@@ -101,11 +101,21 @@ appear in Tupfiles.")
   "A map of regular expressions to font-lock faces that are used
 for syntax highlighting.")
 
+(defvar tup-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-c C-i") 'tup/run-command-init)
+    (define-key map (kbd "C-c C-m") 'tup/run-command-monitor)
+    (define-key map (kbd "C-c C-s") 'tup/run-command-stop)
+    (define-key map (kbd "C-c C-u") 'tup/run-command-upd)
+    map)
+  "Keymap for Tup mode.")
+
 ;;;###autoload
 (define-derived-mode tup-mode prog-mode "Tup"
   "Major mode for editing tupfiles for the Tup build system.
 
 \\{tup-mode-map}"
+  (use-local-map tup-mode-map)
   ;; Inform font-lock of all of the regular expressions above which
   ;; map to different font-lock faces, and then enable font-lock-mode
   ;; so they actually affect the tupfile.
@@ -170,8 +180,6 @@ a Tup variant."
          (if prefix
              (read-from-minibuffer "Variant: "))))
     (tup/run-upd variant)))
-
-(define-key tup-mode-map (kbd "C-c C-u") 'tup/run-command-upd)
 
 ;;; Automatically enable tup-mode for any file with the `*.tup'
 ;;; extension and for the specific files `Tupfile' and `tup.config'.
