@@ -101,11 +101,21 @@ appear in Tupfiles.")
   "A map of regular expressions to font-lock faces that are used
 for syntax highlighting.")
 
+(defvar tup-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-c C-i") 'tup/run-command-init)
+    (define-key map (kbd "C-c C-m") 'tup/run-command-monitor)
+    (define-key map (kbd "C-c C-s") 'tup/run-command-stop)
+    (define-key map (kbd "C-c C-u") 'tup/run-command-upd)
+    map)
+  "Keymap for Tup mode.")
+
 ;;;###autoload
 (define-derived-mode tup-mode prog-mode "Tup"
   "Major mode for editing tupfiles for the Tup build system.
 
 \\{tup-mode-map}"
+  (use-local-map tup-mode-map)
   ;; Inform font-lock of all of the regular expressions above which
   ;; map to different font-lock faces, and then enable font-lock-mode
   ;; so they actually affect the tupfile.
@@ -133,25 +143,23 @@ for syntax highlighting.")
   "Execute a Tup `command' in the current directory."
   (call-process-shell-command "tup" nil nil nil command))
 
-(defmacro tup/make-command-key-binding (key command docstring)
-  "Binds the `key' sequence to execute the Tup `command'.
-The `key' must be a valid argument to the `kbd' function."
-  (let ((command-function (intern (concat "tup/run-command-" command))))
-    `(progn
-       (defun ,command-function ()
-         ,docstring
-         (interactive)
-         (tup/run-command ,command))
-       (define-key tup-mode-map (kbd ,key) ',command-function))))
+(defmacro tup/make-command-function (name docstring)
+  "Create a function to run the Tup command with the given `name', e.g.
+if `name' is 'init' this creates `tup/run-command-init'."
+  (let ((command-function (intern (concat "tup/run-command-" name))))
+    `(defun ,command-function ()
+       ,docstring
+       (interactive)
+       (tup/run-command ,name))))
 
-(tup/make-command-key-binding
- "C-c C-i" "init"
+(tup/make-command-function
+ "init"
  "Initializes Tup in the directory of the current file.")
-(tup/make-command-key-binding
- "C-c C-m" "monitor"
+(tup/make-command-function
+ "monitor"
  "Starts the Tup monitor in the current directory.")
-(tup/make-command-key-binding
- "C-c C-s" "stop"
+(tup/make-command-function
+ "stop"
  "Stops the monitor process if Tup is running it.")
 
 (defun tup/run-upd (&optional variant)
@@ -163,24 +171,15 @@ buffer."
     (call-process-shell-command "tup" nil tup-buffer t "upd" variant)
     (switch-to-buffer-other-window tup-buffer t)))
 
-;;; Elsewhere we use tup/make-command-key-binding to setup the keys
-;;; for tup-mode.  However, we need to use a custom function for the
-;;; key-binding to run 'tup upd' because we want to accept an optional
-;;; argument: a variant to update.
-;;;
-;;; We bind 'C-c C-u' to run 'tup upd', but if given the prefix
-;;; command it will first prompt the user for the name of a variant to
-;;; update.
-
 (defun tup/run-command-upd (prefix)
-  "Updates the current project in the current directory."
+  "Updates the current project in the current directory.  If
+given the `prefix' the function prompts the user for the name of
+a Tup variant."
   (interactive "P")
   (let ((variant
          (if prefix
              (read-from-minibuffer "Variant: "))))
     (tup/run-upd variant)))
-
-(define-key tup-mode-map (kbd "C-c C-u") 'tup/run-command-upd)
 
 ;;; Automatically enable tup-mode for any file with the `*.tup'
 ;;; extension and for the specific files `Tupfile' and `tup.config'.
