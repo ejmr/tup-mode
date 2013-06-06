@@ -142,14 +142,14 @@ if `name' is 'init' this creates `tup/run-command-init'."
        (interactive)
        (tup/run-command ,name))))
 
-(tup/make-command-key-binding
- "C-c C-i" "init"
+(tup/make-command-function
+ "init"
  "Initializes Tup in the directory of the current file.")
-(tup/make-command-key-binding
- "C-c C-m" "monitor"
+(tup/make-command-function
+ "monitor"
  "Starts the Tup monitor in the current directory.")
-(tup/make-command-key-binding
- "C-c C-s" "stop"
+(tup/make-command-function
+ "stop"
  "Stops the monitor process if Tup is running it.")
 
 (defun tup/run-upd (&optional variant)
