@@ -144,7 +144,6 @@ The `key' must be a valid argument to the `kbd' function."
          (tup/run-command ,command))
        (define-key tup-mode-map (kbd ,key) ',command-function))))
 
-;;; Bind keys to frequently used Tup commands.
 (tup/make-command-key-binding
  "C-c C-i" "init"
  "Initializes Tup in the directory of the current file.")
