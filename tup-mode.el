@@ -133,16 +133,14 @@ for syntax highlighting.")
   "Execute a Tup `command' in the current directory."
   (call-process-shell-command "tup" nil nil nil command))
 
-(defmacro tup/make-command-key-binding (key command docstring)
-  "Binds the `key' sequence to execute the Tup `command'.
-The `key' must be a valid argument to the `kbd' function."
-  (let ((command-function (intern (concat "tup/run-command-" command))))
-    `(progn
-       (defun ,command-function ()
-         ,docstring
-         (interactive)
-         (tup/run-command ,command))
-       (define-key tup-mode-map (kbd ,key) ',command-function))))
+(defmacro tup/make-command-function (name docstring)
+  "Create a function to run the Tup command with the given `name', e.g.
+if `name' is 'init' this creates `tup/run-command-init'."
+  (let ((command-function (intern (concat "tup/run-command-" name))))
+    `(defun ,command-function ()
+       ,docstring
+       (interactive)
+       (tup/run-command ,name))))
 
 (tup/make-command-key-binding
  "C-c C-i" "init"
