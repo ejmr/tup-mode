@@ -105,6 +105,9 @@
     (define-key map (kbd "C-c C-m") 'tup/run-command-monitor)
     (define-key map (kbd "C-c C-s") 'tup/run-command-stop)
     (define-key map (kbd "C-c C-u") 'tup/run-command-upd)
+    (define-key map (kbd "C-c C-r") 'tup/run-command-refactor)
+    (define-key map (kbd "C-c C-o") 'tup/run-command-options)
+    (define-key map (kbd "C-c C-t") 'tup/run-command-todo)
     map)
   "Keymap for Tup mode.")
 
@@ -163,6 +166,18 @@ The function will also have the given DOCSTRING."
 (tup/make-command-function
  "stop"
  "Stops the monitor process if Tup is running it.")
+
+(tup/make-command-function
+ "refactor"
+ "Parses Tupfiles for any errors.")
+
+(tup/make-command-function
+ "options"
+ "Shows all Tup option values and their origins.")
+
+(tup/make-command-function
+ "todo"
+ "Shows the next step in the Tup process.")
 
 (defun tup/run-upd (&optional variant)
   "Run the Tup 'upd' command.
