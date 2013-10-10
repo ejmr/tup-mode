@@ -155,9 +155,11 @@ The function will also have the given DOCSTRING."
 (tup/make-command-function
  "init"
  "Initializes Tup in the directory of the current file.")
+
 (tup/make-command-function
  "monitor"
  "Starts the Tup monitor in the current directory.")
+
 (tup/make-command-function
  "stop"
  "Stops the monitor process if Tup is running it.")
