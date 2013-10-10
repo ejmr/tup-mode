@@ -36,8 +36,15 @@
 ;;
 ;; Files ending with the `*.tup' extension, or files named `Tupfile'
 ;; or `tup.config' automatically enable tup-mode.
-
+;;
+;;
+;;
 ;;; Code:
+;;
+;; The functions `tup/run-command-*' are the only functions that are
+;; part of the public API.  No external code should ever rely on any
+;; other functions or variables except for those.  Everything else is
+;; private and may change at any time.
 
 (require 'custom)
 (require 'font-lock)

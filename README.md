@@ -40,3 +40,11 @@ License
 -------
 
 [GNU General Public License Version 3](http://www.gnu.org/copyleft/gpl.html)
+
+
+Versioning
+----------
+
+Tup Mode follows [Semantic Versioning](http://semver.org/).  See the
+comments in the `Code` section of `tup-mode.el` for a description of
+what belongs to the public API and what does not.
