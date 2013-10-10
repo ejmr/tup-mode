@@ -72,8 +72,7 @@
          "preload"
          ".gitignore")
    'words)
-  "A regular expression matching all of the keywords that can
-appear in Tupfiles.")
+  "A regular expression matching all Tup keywords.")
 
 (defconst tup/font-lock-definitions
   (list
@@ -98,8 +97,7 @@ appear in Tupfiles.")
    (cons "|>" font-lock-constant-face)
    ;; Matches flags in rules like '%f' and '%B'.
    (cons "\\<%[[:alpha:]]\\{1\\}" font-lock-preprocessor-face))
-  "A map of regular expressions to font-lock faces that are used
-for syntax highlighting.")
+  "A map of regular expressions to font-lock faces.")
 
 (defvar tup-mode-map
   (let ((map (make-sparse-keymap)))
@@ -140,12 +138,14 @@ for syntax highlighting.")
   (set (make-local-variable 'require-final-newline) t))
 
 (defun tup/run-command (command)
-  "Execute a Tup `command' in the current directory."
+  "Execute a Tup COMMAND in the current directory."
   (call-process-shell-command "tup" nil nil nil command))
 
 (defmacro tup/make-command-function (name docstring)
-  "Create a function to run the Tup command with the given `name', e.g.
-if `name' is 'init' this creates `tup/run-command-init'."
+  "Create a function to run the Tup command with the given NAME.
+
+For example, if NAME is 'init' this makes `tup/run-command-init'.
+The function will also have the given DOCSTRING."
   (let ((command-function (intern (concat "tup/run-command-" name))))
     `(defun ,command-function ()
        ,docstring
@@ -163,17 +163,19 @@ if `name' is 'init' this creates `tup/run-command-init'."
  "Stops the monitor process if Tup is running it.")
 
 (defun tup/run-upd (&optional variant)
-  "Runs the Tup 'upd' command.  If the optional `variant'
-argument is provided then the command updates that specific
-variant.  The output of the command appears in the `*Tup*'
-buffer."
+  "Run the Tup 'upd' command.
+
+If the optional VARIANT argument is provided then the command
+updates that specific variant.  The output of the command appears
+in the `*Tup*' buffer."
   (let ((tup-buffer (get-buffer-create "*Tup*")))
     (call-process-shell-command "tup" nil tup-buffer t "upd" variant)
     (switch-to-buffer-other-window tup-buffer t)))
 
 (defun tup/run-command-upd (prefix)
-  "Updates the current project in the current directory.  If
-given the `prefix' the function prompts the user for the name of
+  "Update the current project in the current directory.
+
+If given the PREFIX the function prompts the user for the name of
 a Tup variant."
   (interactive "P")
   (let ((variant
