@@ -4,7 +4,7 @@
 ;;
 ;; Author: Eric James Michael Ritz <lobbyjones@gmail.com>
 ;; URL: https://github.com/ejmr/tup-mode
-;; Version: 1.3.0
+;; Version: 1.3.1
 ;;
 ;;
 ;;
@@ -50,7 +50,7 @@
 (require 'font-lock)
 (require 'regexp-opt)
 
-(defconst tup-mode-version-number "1.3.0"
+(defconst tup-mode-version-number "1.3.1"
   "Tup mode version number.")
 
 (defgroup tup nil
