@@ -34,6 +34,7 @@ Contributors
 
 1. [Steve Purcell](https://github.com/purcell)
 2. [Jonas Bernoulli](https://github.com/tarsius)
+3. [nshepperd](https://github.com/nshepperd)
 
 
 License
