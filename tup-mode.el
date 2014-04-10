@@ -142,6 +142,7 @@
   ;; the end of the line.
   (modify-syntax-entry ?# "< b" tup-mode-syntax-table)
   (modify-syntax-entry ?\n "> b" tup-mode-syntax-table)
+  (setq-local comment-start "# ")
   ;; Tup can complain with an error if the tupfile does not end with a
   ;; newline, especially when we have tup rules that span multiple
   ;; lines.  So we always require a newline at the end of a tupfile.
