@@ -140,6 +140,7 @@
   ;; Modify the syntax table so that tup-mode understands the comment
   ;; format in tupfiles: lines beginning with '#' and running until
   ;; the end of the line.
+  (set (make-local-variable 'comment-start) "#")
   (modify-syntax-entry ?# "< b" tup-mode-syntax-table)
   (modify-syntax-entry ?\n "> b" tup-mode-syntax-table)
   ;; Tup can complain with an error if the tupfile does not end with a
