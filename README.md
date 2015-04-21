@@ -18,7 +18,7 @@ Tup commands.  It binds the following key sequences:
 3. `C-c C-m`: `tup monitor`
 4. `C-c C-s`: `tup stop`
 5. `C-c C-r`: `tup refactor`
-6. `C-c C-o`: `tup options
+6. `C-c C-o`: `tup options`
 7. `C-c C-t`: `tup todo`
 
 If you use a prefix argument with `C-c C-u`, e.g. if you press `C-u
